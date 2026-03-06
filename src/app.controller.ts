@@ -5,12 +5,10 @@ import { AuthGuard } from '@nestjs/passport';
 export class AppController{
   constructor(private readonly gw: AppService) {}
   // Public endpoints forwarded to auth-service
-  @Post('auth/register')
-  register(@Body() body: { email: string; password: string }) {
-    return this.gw.register(body);
-  }
+  // Este endpoint se encarga de recibir la solicitud de login del cliente,
+  // enviar la solicitud al auth-service a través del servicio y devolver la respuesta al cliente
   @Post('auth/login')
-  login(@Body() body: { email: string; password: string }) {
+  login(@Body() body: { username: string; password: string }) {
     return this.gw.login(body);
   }
   // Protected endpoint at the gateway (example)

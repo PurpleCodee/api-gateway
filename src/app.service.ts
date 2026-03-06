@@ -11,10 +11,8 @@ export class AppService{
   ) {
     this.authUrl = cfg.get<string>('AUTH_SERVICE_URL') ?? 'http://localhost:3001';
   }
-  async register(body: any) {
-    const res$ = this.http.post(`${this.authUrl}/auth/register`, body);
-    return (await firstValueFrom(res$)).data;
-  }
+  // Esta funcion se encarga de enviar la solicitud de login al auth-service y devolver
+  //  la respuesta al controlador
   async login(body: any) {
     const res$ = this.http.post(`${this.authUrl}/auth/login`, body);
     return (await firstValueFrom(res$)).data;
