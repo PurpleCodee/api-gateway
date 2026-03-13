@@ -1,9 +1,9 @@
 import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
-import { AppService} from './app.service';
 import { AuthGuard } from '@nestjs/passport';
+import { AuthService } from './auth/auth.service';
 @Controller()
 export class AppController{
-  constructor(private readonly gw: AppService) {}
+  constructor(private readonly gw: AuthService) {}
   // Public endpoints forwarded to auth-service
   // Este endpoint se encarga de recibir la solicitud de login del cliente,
   // enviar la solicitud al auth-service a través del servicio y devolver la respuesta al cliente
