@@ -15,8 +15,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any) {
-    // Keep it simple: trust payload, optionally call auth-service to verify user still exists
-
-    return { id: payload.sub, username: payload.username, roles: payload.roles };
+    return { userId: payload.userId, username: payload.username };
   }
 }

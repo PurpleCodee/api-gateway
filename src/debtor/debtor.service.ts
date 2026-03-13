@@ -15,26 +15,37 @@ export class DebtorService {
   }
 
   // Este metodo sirve para la paginacion y filtro del buscador
-  async findAllPaginated(query: any) {
-    const res$ = this.http.get(`${this.debtorUrl}/debtors/search`, { params: query });
+  async findAllPaginated(query: any, userId: string) {
+    const res$ = this.http.get(`${this.debtorUrl}/debtors/search`, {
+      params: { ...query, userId },
+    });
     return (await firstValueFrom(res$)).data;
   }
 
   // Este metodo devuelve el debtor por la id
-  async findOne(id: number) {
-    const res$ = this.http.get(`${this.debtorUrl}/debtors/${id}`);
+  async findOne(id: number, userId: string) {
+    const res$ = this.http.get(`${this.debtorUrl}/debtors/${id}`, {
+      params: { userId },
+    });
     return (await firstValueFrom(res$)).data;
   }
 
   // Este metodo crea un nuevo debtor
-  async create(body: any) {
-    const res$ = this.http.post(`${this.debtorUrl}/debtors`, body);
+  async create(body: any, userId: string) {
+    const res$ = this.http.post(`${this.debtorUrl}/debtors`, {
+      ...body,
+      ownerUserId: userId,
+      createdByUserId: userId,
+    });
     return (await firstValueFrom(res$)).data;
   }
 
   // Este metodo actualiza cualquier dato necesario del debtor
-  async update(id: number, body: any) {
-    const res$ = this.http.patch(`${this.debtorUrl}/debtors/${id}`, body);
+  async update(id: number, body: any, userId: string) {
+    const res$ = this.http.patch(`${this.debtorUrl}/debtors/${id}`, {
+      ...body,
+      updatedByUserId: userId,
+    });
     return (await firstValueFrom(res$)).data;
   }
 }
